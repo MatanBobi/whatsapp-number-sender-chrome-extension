@@ -1,25 +1,32 @@
-import React from 'react';
-import logo from '../../assets/img/logo.svg';
-import Greetings from '../../containers/Greetings/Greetings';
+import React, { useState } from 'react';
+import { Input, Button } from 'antd';
 import './Popup.css';
 
 const Popup = () => {
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [isPhoneNumberError, setPhoneNumberError] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/pages/Popup/Popup.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React!
-        </a>
-      </header>
+    <div className={`App ${isPhoneNumberError && 'input-error'}`}>
+      <Input
+        value={phoneNumber}
+        onChange={({ target }) => {
+          setPhoneNumberError(false);
+          setPhoneNumber(target.value);
+        }}
+      />
+      <Button
+        style={{ margin: '10px 0' }}
+        onClick={() => {
+          if (!phoneNumber) {
+            setPhoneNumberError(true);
+            return;
+          }
+          chrome.tabs.create({ url: `https://wa.me/${phoneNumber}` });
+        }}
+        type="primary"
+      >
+        Send Whatsapp Message
+      </Button>
     </div>
   );
 };

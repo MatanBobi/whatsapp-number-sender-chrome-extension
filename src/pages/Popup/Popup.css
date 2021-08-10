@@ -1,3 +1,5 @@
+@import 'antd/dist/antd.css';
+
 .App {
   position: absolute;
   top: 0px;
@@ -8,6 +10,10 @@
   height: 100%;
   padding: 10px;
   background-color: #282c34;
+}
+
+.App.input-error .ant-input {
+  border-color: #ff4d4f;
 }
 
 .App-logo {
